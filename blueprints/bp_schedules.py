@@ -1,20 +1,20 @@
 from flask import Blueprint
 from utils.response import json_response
-from functions.schedules import QuerySchedules
+from functions.schedules import Schedules
 
-blueprint = Blueprint("index", __name__, url_prefix="/api/schedules")
+blueprint = Blueprint("schedules", __name__, url_prefix="/api/schedules")
 cookie = dict(iksm_session="263fab071ccc7f0c21cd147196e844279c8c3d3a")
 
 
-@blueprint.route("/battle", methods=["GET"])
+@blueprint.route("/battle.json", methods=["GET"])
 def battle():
     """查询当前标准模式的时刻表"""
-    data = QuerySchedules(cookie).query_battle()
+    data = Schedules(cookie).battle()
     return json_response(data)
 
 
-@blueprint.route("/coop", methods=["GET"])
+@blueprint.route("/coop.json", methods=["GET"])
 def coop():
     """查询当前打工模式的时刻表"""
-    data = QuerySchedules(cookie).query_coop()
+    data = Schedules(cookie).coop()
     return json_response(data)

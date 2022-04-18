@@ -2,7 +2,8 @@
 from flask import Flask
 from config import FlaskConfig, DBConfig
 from utils.database import db
-from blueprints.bp_index import blueprint as index
+from blueprints.bp_schedules import blueprint as schedules
+from blueprints.bp_onlineshop import blueprint as onlineshop
 
 # 这是FLASK主程序，除非开发用途，否则请考虑使用wsgi.py在生产环境进行启动，详情请查看wsgi.py
 # 启动命令 flask run -h [监听IP地址:监听端口号]
@@ -19,7 +20,8 @@ with app.app_context():
     db.create_all()
 
 # 蓝图
-app.register_blueprint(blueprint=index)
+app.register_blueprint(schedules)
+app.register_blueprint(onlineshop)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=9090)
