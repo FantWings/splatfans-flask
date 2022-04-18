@@ -1,0 +1,7 @@
+# ignore Folders
+.venv
+.vscode
+
+# ignore files
+sqlite.db
+
