@@ -1,17 +1,18 @@
-# from flask_cors import CORS
 from flask import Flask
+from flask_cors import CORS
 from config import FlaskConfig, DBConfig
 from utils.database import db
 from blueprints.bp_schedules import blueprint as schedules
 from blueprints.bp_onlineshop import blueprint as onlineshop
+from blueprints.bp_auth import blueprint as auth
 
 # 这是FLASK主程序，除非开发用途，否则请考虑使用wsgi.py在生产环境进行启动，详情请查看wsgi.py
 # 启动命令 flask run -h [监听IP地址:监听端口号]
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(FlaskConfig)
 app.config.from_object(DBConfig)
-# CORS(app, supports_credentials=True)
 
 with app.app_context():
     # 运行时初始化数据库
@@ -22,6 +23,7 @@ with app.app_context():
 # 蓝图
 app.register_blueprint(schedules)
 app.register_blueprint(onlineshop)
+app.register_blueprint(auth)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=9090)

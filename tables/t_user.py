@@ -2,7 +2,7 @@ from sqlalchemy.sql import func
 from utils.database import db
 
 # 外键表
-from t_relationship import t_email
+from tables.t_email import Email
 
 
 class Users(db.Model):
@@ -33,7 +33,7 @@ class Users(db.Model):
     )
     # 邮箱（外键）
     email_addr = db.Column(db.String(32),
-                           db.ForeignKey(t_email.email),
+                           db.ForeignKey(Email.email),
                            nullable=False,
                            comment="邮箱")
-    email = db.relationship(t_email, backref="email_of_user")
+    email = db.relationship(Email, backref="email_of_user")
