@@ -4,3 +4,4 @@ redis
 mysqlclient
 requests
 gunicorn
+bs4

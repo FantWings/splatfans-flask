@@ -22,7 +22,7 @@ class DBConfig(object):
     # 如果设置为True，Flask-SQLAlchemy将跟踪对象的修改并发出信号。默认值为None
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     # 查询时会显示原始SQL语句
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
     if getenv("SQL_ENGINE", "sqlite") == "mysql":
         # 使用MySQL数据库

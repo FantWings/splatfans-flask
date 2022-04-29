@@ -1,4 +1,5 @@
 from flask import make_response
+from time import time
 
 
 def json_response(data=None,
@@ -11,5 +12,10 @@ def json_response(data=None,
     msg:    附加消息
     status: 返回码
     """
-    response = {"status": status, "msg": msg, "data": data}
+    response = {
+        "status": status,
+        "msg": msg,
+        "data": data,
+        "timestep": int(round(time() * 1000))
+    }
     return make_response(response, code)
