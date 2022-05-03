@@ -5,3 +5,4 @@ mysqlclient
 requests
 gunicorn
 bs4
+flask_cors
