@@ -3,7 +3,7 @@ from utils.response import json_response
 from functions.iksm import (get_login_url, get_cookie, get_session_token,
                             unlink_account)
 
-blueprint = Blueprint("iksm", __name__, url_prefix="/api/iksm")
+blueprint = Blueprint("iksm", __name__)
 
 
 @blueprint.route('login_url', methods=['GET'])

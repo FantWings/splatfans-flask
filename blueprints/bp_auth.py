@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from utils.response import json_response
 from crud.auth import userLogin, registerNewAccount, logoutUser
 
-blueprint = Blueprint("auth", __name__, url_prefix="/api/auth")
+blueprint = Blueprint("auth", __name__)
 
 
 @blueprint.route('login', methods=['POST'])

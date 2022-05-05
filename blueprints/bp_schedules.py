@@ -2,7 +2,7 @@ from flask import Blueprint
 from utils.response import json_response
 from functions.schedules import Schedules
 
-blueprint = Blueprint("schedules", __name__, url_prefix="/api/schedules")
+blueprint = Blueprint("schedules", __name__)
 cookie = dict(iksm_session="263fab071ccc7f0c21cd147196e844279c8c3d3a")
 
 
