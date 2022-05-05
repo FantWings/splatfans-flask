@@ -25,12 +25,12 @@ def create_app():
         # 创建数据库表
         db.create_all()
 
-        # 蓝图
-        app.register_blueprint(schedules, url_prefix="/schedules")
-        app.register_blueprint(onlineshop, url_prefix="/onlineshop")
-        app.register_blueprint(auth, url_prefix="/auth")
-        app.register_blueprint(user, url_prefix="/user")
-        app.register_blueprint(iksm, url_prefix="/iksm")
+    # 蓝图
+    app.register_blueprint(schedules, url_prefix="/schedules")
+    app.register_blueprint(onlineshop, url_prefix="/onlineshop")
+    app.register_blueprint(auth, url_prefix="/auth")
+    app.register_blueprint(user, url_prefix="/user")
+    app.register_blueprint(iksm, url_prefix="/iksm")
 
     return app
 
