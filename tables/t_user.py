@@ -1,14 +1,15 @@
 from sqlalchemy.sql import functions
 from utils.database import db
-from sqlalchemy import (Column, String, Integer, ForeignKey, DateTime, Boolean,
-                        TEXT)
+from sqlalchemy import (Column, String, ForeignKey, DateTime, Boolean, TEXT)
 
 
 class Users(db.Model):
     """用户表"""
     __tablename__ = "t_users"
-    id = Column(Integer, primary_key=True, nullable=False, comment="索引")
-    uuid = Column(String(64), nullable=False, comment="用户UUID")
+    uid = Column(String(64),
+                 nullable=False,
+                 primary_key=True,
+                 comment="用户UUID")
     username = Column(String(16), nullable=False, comment="用户名")
     nickname = Column(String(16), nullable=True, comment="昵称")
     password = Column(String(32), comment="密码")

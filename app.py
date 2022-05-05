@@ -32,6 +32,10 @@ def create_app():
     app.register_blueprint(user, url_prefix="/user")
     app.register_blueprint(iksm, url_prefix="/iksm")
 
+    @app.teardown_request
+    def proccess(error):
+        db.session.close()
+
     return app
 
 

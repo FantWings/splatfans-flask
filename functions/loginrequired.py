@@ -15,7 +15,7 @@ def loginRequired(fn):
         if uid:
             # 刷新Token有效期
             Redis.expire("session/{}".format(token))
-            return fn(int(uid), *args, **xargs)
+            return fn(uid, *args, **xargs)
         else:
             return {"status": 10, "msg": "需要登录"}
 

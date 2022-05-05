@@ -26,7 +26,7 @@ def userLogin(username: str, password: str) -> object:
     if gen_md5_password(password) != QUERY_RESULT.password:
         return {"status": 1, "msg": "用户名或密码错误"}
     TOKEN = gen_token(32)
-    Redis.write("session/{}".format(TOKEN), QUERY_RESULT.id)
+    Redis.write("session/{}".format(TOKEN), QUERY_RESULT.uid)
     return {
         "data": {
             "token": TOKEN,
@@ -55,19 +55,19 @@ def registerNewAccount(email: str, password: str, username: str) -> object:
 
     # 写入用户名到数据库
     NEW_USER = Users(
+        uid=uuid1().hex,
         password=gen_md5_password(password),
         username=username,
         email_addr=email,
         avatar="https://cn.gravatar.com/avatar/{}".format(
             md5(email.encode("utf-8")).hexdigest()),
-        uuid=uuid1().hex,
     )
     session.add(NEW_USER)
     # session.flush()
     session.commit()
 
     token = gen_token(32)
-    Redis.write("session/{}".format(token), NEW_USER.id)
+    Redis.write("session/{}".format(token), NEW_USER.uid)
     return {"data": {"token": token}}
 
 

@@ -17,7 +17,7 @@ def get_user_info(uid):
     return {
         "data": {
             "username": QUERY_RESULT.username,
-            "uuid": QUERY_RESULT.uuid,
+            "uuid": QUERY_RESULT.uid,
             "avatar": QUERY_RESULT.avatar,
             "iksm": iksm_status,
             "qq": QUERY_RESULT.qq,
