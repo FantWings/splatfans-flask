@@ -23,10 +23,12 @@ class DBConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     # 查询时会显示原始SQL语句
     SQLALCHEMY_ECHO = False
+    # 设置线程池最大链接时长（秒）
+    SQLALCHEMY_POOL_RECYCLE = 1800
 
     if getenv("SQL_ENGINE", "sqlite") == "mysql":
         # 使用MySQL数据库
-        SQLALCHEMY_DATABASE_URI = f"mysql://%s:%s@%s:%s/%s" % (
+        SQLALCHEMY_DATABASE_URI = "mysql://%s:%s@%s:%s/%s" % (
             getenv("SQL_USER", "root"),
             getenv("SQL_PASS", ""),
             getenv("SQL_HOST", "127.0.0.1"),
