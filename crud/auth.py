@@ -68,7 +68,12 @@ def registerNewAccount(email: str, password: str, username: str) -> object:
 
     token = gen_token(32)
     Redis.write("session/{}".format(token), NEW_USER.uid)
-    return {"data": {"token": token}}
+    return {
+        "data": {
+            "token": token,
+            "expTime": int(round(time() * 1000)) + 172800000
+        }
+    }
 
 
 # @loginRequired
