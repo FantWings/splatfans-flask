@@ -3,7 +3,7 @@ from tables.t_user import Users
 
 
 @loginRequired
-def get_user_info(uid):
+def get_user_info(uid) -> object:
     """获取用户信息"""
     QUERY_RESULT = Users.query.get(uid)
     if QUERY_RESULT is None:

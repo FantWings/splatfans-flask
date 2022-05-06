@@ -24,7 +24,7 @@ auth_code_verifier = base64.urlsafe_b64encode(os.urandom(32))
 def get_login_url(uid):
     '''生成登录链接'''
 
-    link = Redis.read(f'connect_{uid}')
+    link = Redis.read(f'{uid}/connect_link')
     if link:
         return {"data": link, "msg": "重复请求，从缓存中读取"}
 
@@ -68,7 +68,7 @@ def get_login_url(uid):
 
     url = 'https://accounts.nintendo.com/connect/1.0.0/authorize'
     response = session.get(url, headers=app_head, params=body)
-    Redis.write(f'connect_{uid}', response.history[0].url, 120)
+    Redis.write(f'{uid}/connect_link', response.history[0].url, 120)
     return {"data": response.history[0].url}
 
 

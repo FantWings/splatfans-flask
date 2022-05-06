@@ -67,7 +67,7 @@ def registerNewAccount(email: str, password: str, username: str) -> object:
     session.commit()
 
     token = gen_token(32)
-    Redis.write("session/{}".format(token), NEW_USER.uid)
+    Redis.write(f"{token}/login_session", NEW_USER.uid)
     return {
         "data": {
             "token": token,
