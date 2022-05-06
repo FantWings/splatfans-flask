@@ -35,24 +35,16 @@ def get_login_url(uid):
     auth_code_challenge = base64.urlsafe_b64encode(auth_cv_hash.digest())
 
     app_head = {
-        'Host':
-        'accounts.nintendo.com',
-        'Connection':
-        'keep-alive',
-        'Cache-Control':
-        'max-age=0',
-        'Upgrade-Insecure-Requests':
-        '1',
+        'Host': 'accounts.nintendo.com',
+        'Connection': 'keep-alive',
+        'Cache-Control': 'max-age=0',
+        'Upgrade-Insecure-Requests': '1',
         'User-Agent':
-        ('Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 \
-         (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36'),
+        'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36',
         'Accept':
-        ('text/html,application/xhtml+xml,application/xml;q=0.9,image/web \
-            p,image/apng,*/*;q=0.8n'),
-        'DNT':
-        '1',
-        'Accept-Encoding':
-        'gzip,deflate,br',
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8n',
+        'DNT': '1',
+        'Accept-Encoding': 'gzip,deflate,br',
     }
 
     body = {
@@ -220,8 +212,8 @@ def get_cookie(uid, userLang='en_US'):
             "accessToken"]
         flapg_app = call_flapg_api(idToken, guid, timestamp, "app")
     except Exception:
-        # print("Error from Nintendo (in Account/Login step):")
-        # print(json.dumps(splatoon_token, indent=2))
+        print("Error from Nintendo (in Account/Login step):")
+        print(json.dumps(splatoon_token, indent=2))
         return {
             "status": 1,
             "msg": "Error from Nintendo (in Account/Login step)",
@@ -254,8 +246,8 @@ def get_cookie(uid, userLang='en_US'):
             'gzip'
         }
     except Exception:
-        # print("Error from Nintendo (in Account/Login step):")
-        # print(json.dumps(splatoon_token, indent=2))
+        print("Error from Nintendo (in Account/Login step):")
+        print(json.dumps(splatoon_token, indent=2))
         return {
             "status":
             1,
@@ -293,13 +285,12 @@ def get_cookie(uid, userLang='en_US'):
             'Connection': 'keep-alive',
             'DNT': '0',
             'User-Agent':
-            'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 \
-                 (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36',
+            'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36',
             'X-Requested-With': 'com.nintendo.znca'
         }
     except Exception:
-        # print("Error from Nintendo (in Game/GetWebServiceToken step):")
-        # print(json.dumps(splatoon_access_token, indent=2))
+        print("Error from Nintendo (in Game/GetWebServiceToken step):")
+        print(json.dumps(splatoon_access_token, indent=2))
         return {
             "status":
             1,
@@ -308,12 +299,11 @@ def get_cookie(uid, userLang='en_US'):
                 {json.dumps(splatoon_access_token, indent=2)}"
         }
 
-    url = "https://app.splatoon2.nintendo.net/?lang={}".format(userLang)
+    url = f"https://app.splatoon2.nintendo.net/?lang={userLang}"
     r = requests.get(url, headers=app_head)
 
     QUERY_RESULT.nickname = nickname
     QUERY_RESULT.cookie = r.cookies["iksm_session"]
-    print(user_info)
 
     db.session.add(QUERY_RESULT)
     db.session.commit()
@@ -329,7 +319,7 @@ def get_hash_from_s2s_api(id_token, timestamp):
 
     # proceed normally
     try:
-        api_app_head = {'User-Agent': "splatnet2statink/{}".format(version)}
+        api_app_head = {'User-Agent': f"splatnet2statink/{version}"}
         api_body = {'naIdToken': id_token, 'timestamp': timestamp}
         api_response = requests.post("https://elifessler.com/s2s/api/gen2",
                                      headers=api_app_head,
