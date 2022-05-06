@@ -26,7 +26,7 @@ def userLogin(username: str, password: str) -> object:
     if gen_md5_password(password) != QUERY_RESULT.password:
         return {"status": 1, "msg": "用户名或密码错误"}
     TOKEN = gen_token(32)
-    Redis.write("session/{}".format(TOKEN), QUERY_RESULT.uid)
+    Redis.write(f"{TOKEN}/uuid", QUERY_RESULT.uid)
     return {
         "data": {
             "token": TOKEN,
@@ -67,7 +67,7 @@ def registerNewAccount(email: str, password: str, username: str) -> object:
     session.commit()
 
     token = gen_token(32)
-    Redis.write(f"{token}/login_session", NEW_USER.uid)
+    Redis.write(f"{token}/uuid", NEW_USER.uid)
     return {
         "data": {
             "token": token,

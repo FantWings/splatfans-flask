@@ -12,10 +12,10 @@ def loginRequired(fn: Function) -> Function:
         # 从HEADER取得TOKEN
         token = request.headers.get("token")
         # 使用token从redis中读取用户ID
-        uid = Redis.read(f"{token}/login_session")
+        uid = Redis.read(f"{token}/uuid")
         if uid:
             # 刷新Token有效期
-            Redis.expire(f"{token}/login_session")
+            Redis.expire(f"{token}/uuid")
             return fn(uid, *args, **xargs)
         else:
             return {"status": 10, "msg": "需要登录"}
