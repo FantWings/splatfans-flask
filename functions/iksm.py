@@ -13,8 +13,8 @@ from utils.redis import Redis
 
 session = requests.session()
 
-version = "1.7.1"
-nsoapp_version = "2.0.0"
+version = os.getenv('SPLATINK_VERSION', '1.7.1')
+nsoapp_version = os.getenv('NSOAPP_VERSION', '2.0.0')
 
 # 通用码
 auth_code_verifier = base64.urlsafe_b64encode(os.urandom(32))
@@ -39,10 +39,11 @@ def get_login_url(uid):
         'Connection': 'keep-alive',
         'Cache-Control': 'max-age=0',
         'Upgrade-Insecure-Requests': '1',
-        'User-Agent':
-        'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit' +
+        '537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36',
         'Accept':
-        'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8n',
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image' +
+        '/webp,image/apng,*/*;q=0.8n',
         'DNT': '1',
         'Accept-Encoding': 'gzip,deflate,br',
     }
@@ -274,19 +275,29 @@ def get_cookie(uid, userLang='en_US'):
     # get cookie
     try:
         app_head = {
-            'Host': 'app.splatoon2.nintendo.net',
-            'X-IsAppAnalyticsOptedIn': 'false',
+            'Host':
+            'app.splatoon2.nintendo.net',
+            'X-IsAppAnalyticsOptedIn':
+            'false',
             'Accept':
             'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Encoding': 'gzip,deflate',
-            'X-GameWebToken': splatoon_access_token["result"]["accessToken"],
-            'Accept-Language': userLang,
-            'X-IsAnalyticsOptedIn': 'false',
-            'Connection': 'keep-alive',
-            'DNT': '0',
+            'Accept-Encoding':
+            'gzip,deflate',
+            'X-GameWebToken':
+            splatoon_access_token["result"]["accessToken"],
+            'Accept-Language':
+            userLang,
+            'X-IsAnalyticsOptedIn':
+            'false',
+            'Connection':
+            'keep-alive',
+            'DNT':
+            '0',
             'User-Agent':
-            'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36',
-            'X-Requested-With': 'com.nintendo.znca'
+            'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36' +
+            '(KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36',
+            'X-Requested-With':
+            'com.nintendo.znca'
         }
     except Exception:
         print("Error from Nintendo (in Game/GetWebServiceToken step):")
